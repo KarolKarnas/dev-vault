@@ -2,6 +2,8 @@
 
 <!-- Feature Name -->
 
+None
+
 ## Status
 
 <!-- Not Started|In Progress|Completed -->
@@ -22,3 +24,4 @@ Not Started
 
 - Initial setup: Cleared Next.js boilerplate from page.tsx, globals.css, and public SVGs
 - Phase 1: Initialized ShadCN UI (button, input), added dark mode, created dashboard layout with top bar, sidebar/main placeholders
+- Phase 2: Added collapsible sidebar with item type filters, collection sections (favorites/all) with collapsible groups, user avatar area, minimized icon-only mode, mobile drawer, and new collection button
