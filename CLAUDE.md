@@ -18,4 +18,23 @@ Read the following to get the full context of the project:
 - **Production server**: `npm run start`
 - **Lint**: `npm run lint`
 
-**IMPORTANT:** Do not add Claude to any commit messages
+## Commit Messages
+
+Follow the **Conventional Commits** standard. Rules:
+
+- **Do NOT add Claude or AI attribution** to any commit messages
+- Use a type prefix: `feat:`, `fix:`, `chore:`, `refactor:`, `docs:`, `style:`, `test:`, `perf:`, `ci:`, `build:`
+- Keep the subject line short (under 72 characters)
+- Use imperative mood ("add" not "added")
+- Use bullet points with `-` in the body for multiple changes
+- No period at the end of the subject line
+
+Example:
+
+```
+feat: add sidebar navigation and collection filters
+
+- Add collapsible sidebar component with item type filters
+- Add collection list with favorite/all sections
+- Add active state highlighting for selected filters
+```
