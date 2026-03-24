@@ -2,7 +2,7 @@
 
 <!-- Feature Name -->
 
-Dashboard UI Phase 3 - Main Area
+Prisma + Neon PostgreSQL Setup
 
 ## Status
 
@@ -14,19 +14,22 @@ In Progress
 
 <!-- Goals & requirements -->
 
-- Build the main area to the right of the sidebar
-- Recent collections section
-- Pinned items section
-- 10 recent items section
-- 4 stats cards at top (number of items, collections, favorite items, favorite collections)
+- Set up Prisma ORM (v7) with Neon PostgreSQL (serverless)
+- Create initial schema based on data models in project-overview.md
+- Include NextAuth models (Account, Session, VerificationToken)
+- Add appropriate indexes and cascade deletes
+- Use migrations (never push directly unless specified)
+- Separate dev and production database branches
 
 ## Notes
 
 <!-- Any extra notes -->
 
-- Use mock data from @src/lib/mock-data.js (import directly until database is implemented)
-- Reference screenshot: @context/screenshots/dashboard-ui-main.png
-- Reference specs: @context/features/dashboard-phase-3-spec.md
+- Use Prisma 7 (has breaking changes from v6 - follow upgrade guide)
+- DATABASE_URL points to Neon development branch
+- Always use `prisma migrate dev` for schema changes
+- Reference specs: @context/features/database-spec.md
+- Data models: @context/project-overview.md
 
 ## History
 
@@ -35,3 +38,4 @@ In Progress
 - Initial setup: Cleared Next.js boilerplate from page.tsx, globals.css, and public SVGs
 - Phase 1: Initialized ShadCN UI (button, input), added dark mode, created dashboard layout with top bar, sidebar/main placeholders
 - Phase 2: Added collapsible sidebar with item type filters, collection sections (favorites/all) with collapsible groups, user avatar area, minimized icon-only mode, mobile drawer, and new collection button
+- Phase 3: Added dashboard main area with stats cards, recent collections grid, pinned items, and recent items list
