@@ -1,5 +1,46 @@
 import { prisma } from "@/lib/prisma";
 
+export interface SidebarItemType {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+  count: number;
+}
+
+export async function getItemTypesWithCounts(
+  userId: string
+): Promise<SidebarItemType[]> {
+  const types = await prisma.itemType.findMany({
+    where: {
+      OR: [{ isSystem: true }, { userId }],
+    },
+    include: {
+      _count: {
+        select: {
+          items: { where: { userId } },
+        },
+      },
+    },
+  });
+
+  const order = ["snippet", "prompt", "command", "note", "file", "image", "link"];
+
+  return types
+    .map((t) => ({
+      id: t.id,
+      name: t.name,
+      icon: t.icon ?? "Code",
+      color: t.color ?? "#3b82f6",
+      count: t._count.items,
+    }))
+    .sort((a, b) => {
+      const ai = order.indexOf(a.name);
+      const bi = order.indexOf(b.name);
+      return (ai === -1 ? order.length : ai) - (bi === -1 ? order.length : bi);
+    });
+}
+
 export interface ItemWithType {
   id: string;
   title: string;

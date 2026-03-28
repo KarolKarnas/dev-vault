@@ -1,6 +1,6 @@
 # Current Feature
 
-Dashboard Items - Real Data
+Stats & Sidebar - Real Data
 
 ## Status
 
@@ -8,19 +8,16 @@ Completed
 
 ## Goals
 
-- Replace dummy item data in dashboard main area (right side) with real data from Neon database using Prisma
-- Create src/lib/db/items.ts with data fetching functions
-- Fetch items directly in server component
-- Item card icon/border derived from item type
-- Display item type tags and other existing UI elements
-- Update collection stats display
-- If there are no pinned items, nothing should display there
+- Display stats in main area from database data instead of mock data, keeping current design/layout
+- Display item types in sidebar with their icons, linking to /items/[typename]
+- Add "View all collections" link under the collections list that goes to /collections
+- Keep star icons for favorite collections but for recents, show colored circle based on most-used item type
+- Create @src/lib/db/items.ts database functions (use collections file for reference)
 
 ## Notes
 
-- Reference @context/screenshots/dashboard-ui-main.png for design
-- Data currently comes from @src/lib/mock-data.ts
-- Spec: @context/features/dashboard-items-spec.md
+- Spec: @context/features/stats-sidebar-spec.md
+- Reference: @src/lib/db/collections.ts
 
 ## History
 
@@ -34,3 +31,4 @@ Completed
 - Phase 5: Added seed script with demo user, 7 system item types, 5 collections, and 18 items with realistic content
 - Phase 6: Replaced mock data with real Prisma queries for dashboard collections and stats. Created src/lib/db/collections.ts with getRecentCollections() and getDashboardStats(). Collection card border color derived from most-used item type, type icons shown per collection
 - Phase 7: Replaced mock data with real Prisma queries for dashboard items. Created src/lib/db/items.ts with getPinnedItems() and getRecentItems(). Item card border color and icon derived from item type, type tags displayed per item, pinned section hidden when empty
+- Phase 8: Replaced mock data in sidebar with real Prisma queries. Added getItemTypesWithCounts() and getSidebarCollections() DB functions. Sidebar item types show real icons/counts linking to /items/[typename], collections show star icons for favorites and colored circles for recents, "View all collections" link added. Dashboard layout fetches sidebar data server-side and passes to DashboardShell

@@ -80,6 +80,64 @@ export async function getRecentCollections(
   });
 }
 
+export interface SidebarCollection {
+  id: string;
+  name: string;
+  isFavorite: boolean;
+  itemCount: number;
+  dominantColor: string;
+}
+
+export async function getSidebarCollections(
+  userId: string
+): Promise<SidebarCollection[]> {
+  const collections = await prisma.collection.findMany({
+    where: { userId },
+    orderBy: { updatedAt: "desc" },
+    include: {
+      items: {
+        select: {
+          type: {
+            select: { id: true, color: true },
+          },
+        },
+      },
+    },
+  });
+
+  return collections.map((collection) => {
+    // Find dominant item type color
+    const typeCounts = new Map<string, { count: number; color: string }>();
+
+    for (const item of collection.items) {
+      const { id, color } = item.type;
+      const existing = typeCounts.get(id);
+      if (existing) {
+        existing.count++;
+      } else {
+        typeCounts.set(id, { count: 1, color: color ?? "#3b82f6" });
+      }
+    }
+
+    let dominantColor = "#3b82f6";
+    let maxCount = 0;
+    for (const [, value] of typeCounts) {
+      if (value.count > maxCount) {
+        maxCount = value.count;
+        dominantColor = value.color;
+      }
+    }
+
+    return {
+      id: collection.id,
+      name: collection.name,
+      isFavorite: collection.isFavorite,
+      itemCount: collection.items.length,
+      dominantColor,
+    };
+  });
+}
+
 export interface DashboardStats {
   totalItems: number;
   totalCollections: number;

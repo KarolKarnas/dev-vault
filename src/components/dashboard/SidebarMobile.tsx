@@ -10,7 +10,6 @@ import {
   Image,
   Link as LinkIcon,
   Star,
-  FolderOpen,
   Plus,
   Settings,
   ChevronDown,
@@ -30,12 +29,7 @@ import {
   SheetContent,
   SheetTitle,
 } from "@/components/ui/sheet";
-import {
-  mockItemTypes,
-  mockCollections,
-  mockItemTypeCounts,
-  mockUser,
-} from "@/lib/mock-data";
+import type { SidebarData } from "@/components/dashboard/Sidebar";
 
 const iconMap: Record<string, LucideIcon> = {
   Code,
@@ -50,14 +44,17 @@ const iconMap: Record<string, LucideIcon> = {
 interface SidebarMobileProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  data: SidebarData;
 }
 
 export default function SidebarMobile({
   open,
   onOpenChange,
+  data,
 }: SidebarMobileProps) {
-  const favoriteCollections = mockCollections.filter((c) => c.isFavorite);
-  const allCollections = mockCollections.filter((c) => !c.isFavorite);
+  const { itemTypes, collections, user } = data;
+  const favoriteCollections = collections.filter((c) => c.isFavorite);
+  const allCollections = collections.filter((c) => !c.isFavorite);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -75,12 +72,8 @@ export default function SidebarMobile({
 
         <ScrollArea className="flex-1 h-[calc(100vh-8rem)]">
           <nav className="px-2">
-            {mockItemTypes.map((type) => {
+            {itemTypes.map((type) => {
               const Icon = iconMap[type.icon] ?? Code;
-              const count =
-                mockItemTypeCounts[
-                  type.name as keyof typeof mockItemTypeCounts
-                ] ?? 0;
 
               return (
                 <Link
@@ -93,7 +86,9 @@ export default function SidebarMobile({
                     <Icon className="h-4 w-4" style={{ color: type.color }} />
                     <span className="capitalize">{type.name}s</span>
                   </span>
-                  <span className="text-xs text-muted-foreground">{count}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {type.count}
+                  </span>
                 </Link>
               );
             })}
@@ -149,7 +144,10 @@ export default function SidebarMobile({
                     className="flex items-center justify-between rounded-md px-3 py-2 text-sm hover:bg-sidebar-accent"
                   >
                     <span className="flex items-center gap-3">
-                      <FolderOpen className="h-3.5 w-3.5 text-muted-foreground" />
+                      <span
+                        className="h-3 w-3 shrink-0 rounded-full"
+                        style={{ backgroundColor: collection.dominantColor }}
+                      />
                       <span>{collection.name}</span>
                     </span>
                     <span className="text-xs text-muted-foreground">
@@ -160,6 +158,16 @@ export default function SidebarMobile({
               </CollapsibleContent>
             </Collapsible>
           )}
+
+          <div className="px-2 pb-2">
+            <Link
+              href="/collections"
+              onClick={() => onOpenChange(false)}
+              className="block rounded-md px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
+            >
+              View all collections
+            </Link>
+          </div>
         </ScrollArea>
 
         <Separator />
@@ -167,16 +175,16 @@ export default function SidebarMobile({
         <div className="flex items-center gap-3 px-4 py-3">
           <Avatar className="h-8 w-8">
             <AvatarFallback className="bg-sidebar-accent text-xs">
-              {mockUser.name
+              {user.name
                 .split(" ")
                 .map((n) => n[0])
                 .join("")}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <p className="truncate text-sm font-medium">{mockUser.name}</p>
+            <p className="truncate text-sm font-medium">{user.name}</p>
             <p className="truncate text-xs text-muted-foreground">
-              {mockUser.email}
+              {user.email}
             </p>
           </div>
           <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0">
