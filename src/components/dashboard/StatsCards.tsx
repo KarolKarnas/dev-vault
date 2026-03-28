@@ -5,39 +5,43 @@ import {
   Heart,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { mockItems, mockCollections } from "@/lib/mock-data";
+import type { DashboardStats } from "@/lib/db/collections";
 
-const stats = [
-  {
-    label: "Total Items",
-    value: mockItems.length,
-    icon: Code,
-    color: "text-blue-500",
-  },
-  {
-    label: "Collections",
-    value: mockCollections.length,
-    icon: FolderOpen,
-    color: "text-emerald-500",
-  },
-  {
-    label: "Favorite Items",
-    value: mockItems.filter((i) => i.isFavorite).length,
-    icon: Star,
-    color: "text-yellow-500",
-  },
-  {
-    label: "Favorite Collections",
-    value: mockCollections.filter((c) => c.isFavorite).length,
-    icon: Heart,
-    color: "text-pink-500",
-  },
-];
+interface StatsCardsProps {
+  stats: DashboardStats;
+}
 
-export default function StatsCards() {
+export default function StatsCards({ stats }: StatsCardsProps) {
+  const statItems = [
+    {
+      label: "Total Items",
+      value: stats.totalItems,
+      icon: Code,
+      color: "text-blue-500",
+    },
+    {
+      label: "Collections",
+      value: stats.totalCollections,
+      icon: FolderOpen,
+      color: "text-emerald-500",
+    },
+    {
+      label: "Favorite Items",
+      value: stats.favoriteItems,
+      icon: Star,
+      color: "text-yellow-500",
+    },
+    {
+      label: "Favorite Collections",
+      value: stats.favoriteCollections,
+      icon: Heart,
+      color: "text-pink-500",
+    },
+  ];
+
   return (
     <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-      {stats.map((stat) => {
+      {statItems.map((stat) => {
         const Icon = stat.icon;
         return (
           <Card key={stat.label}>

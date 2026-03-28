@@ -1,20 +1,26 @@
 # Current Feature
 
-<!-- Feature Name -->
+Dashboard Collections - Real Data
 
 ## Status
 
-<!-- Not Started|In Progress|Completed -->
-
-Not Started
+Completed
 
 ## Goals
 
-<!-- Goals & requirements -->
+- Replace dummy collection data in dashboard main area with real data from Neon database using Prisma
+- Create src/lib/db/collections.ts with data fetching functions
+- Fetch collections directly in server component
+- Collection card border color derived from most-used content type in that collection
+- Show small icons of all types in that collection
+- Keep the current design
+- Update collection stats display
+- Do not add items underneath yet
 
 ## Notes
 
-<!-- Any extra notes -->
+- Reference @context/screenshots/dashboard-ui-main.png for design
+- Data currently comes from @src/lib/mock-data.ts
 
 ## History
 
@@ -26,3 +32,4 @@ Not Started
 - Phase 3: Added dashboard main area with stats cards, recent collections grid, pinned items, and recent items list
 - Phase 4: Prisma + Neon PostgreSQL setup with initial schema, NextAuth models, indexes, and cascade deletes
 - Phase 5: Added seed script with demo user, 7 system item types, 5 collections, and 18 items with realistic content
+- Phase 6: Replaced mock data with real Prisma queries for dashboard collections and stats. Created src/lib/db/collections.ts with getRecentCollections() and getDashboardStats(). Collection card border color derived from most-used item type, type icons shown per collection

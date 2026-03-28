@@ -11,7 +11,7 @@ import {
   MoreHorizontal,
   type LucideIcon,
 } from "lucide-react";
-import { mockCollections, mockItemTypes } from "@/lib/mock-data";
+import type { CollectionWithTypes } from "@/lib/db/collections";
 
 const iconMap: Record<string, LucideIcon> = {
   Code,
@@ -23,11 +23,13 @@ const iconMap: Record<string, LucideIcon> = {
   Link: LinkIcon,
 };
 
-export default function RecentCollections() {
-  const recentCollections = [...mockCollections]
-    .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
-    .slice(0, 6);
+interface RecentCollectionsProps {
+  collections: CollectionWithTypes[];
+}
 
+export default function RecentCollections({
+  collections,
+}: RecentCollectionsProps) {
   return (
     <section>
       <div className="mb-4 flex items-center justify-between">
@@ -40,11 +42,12 @@ export default function RecentCollections() {
         </Link>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {recentCollections.map((collection) => (
+        {collections.map((collection) => (
           <Link
             key={collection.id}
             href={`/collections/${collection.id}`}
-            className="group rounded-xl border border-border bg-card p-4 transition-colors hover:bg-accent"
+            className="group rounded-xl border bg-card p-4 transition-colors hover:bg-accent"
+            style={{ borderColor: collection.borderColor }}
           >
             <div className="mb-3 flex items-start justify-between">
               <div className="flex items-center gap-2">
@@ -62,11 +65,11 @@ export default function RecentCollections() {
               {collection.description}
             </p>
             <div className="flex gap-1.5">
-              {mockItemTypes.slice(0, 3).map((type) => {
+              {collection.types.map((type, i) => {
                 const Icon = iconMap[type.icon] ?? Code;
                 return (
                   <Icon
-                    key={type.id}
+                    key={i}
                     className="h-3.5 w-3.5"
                     style={{ color: type.color }}
                   />
