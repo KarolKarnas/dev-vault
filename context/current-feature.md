@@ -1,25 +1,10 @@
 # Current Feature
 
-Add Pro Badge to Sidebar
-
 ## Status
-
-In Progress
 
 ## Goals
 
-- Add a "Pro" badge/indicator next to the user's name in the sidebar user profile area
-- Badge should always be visible as a static upsell marker (not conditional on user plan)
-- Badge should be visible in both expanded and collapsed sidebar states
-- Style the badge to match the app's dark-mode-first design using ShadCN Badge component
-- Update both desktop Sidebar and mobile SidebarMobile components
-
 ## Notes
-
-- Desktop sidebar: @src/components/dashboard/Sidebar.tsx
-- Mobile sidebar: @src/components/dashboard/SidebarMobile.tsx
-- User model has `isPro` boolean field in the Prisma schema
-- User profile area is at the bottom of the sidebar after a separator
 
 ## History
 
@@ -34,3 +19,4 @@ In Progress
 - Phase 6: Replaced mock data with real Prisma queries for dashboard collections and stats. Created src/lib/db/collections.ts with getRecentCollections() and getDashboardStats(). Collection card border color derived from most-used item type, type icons shown per collection
 - Phase 7: Replaced mock data with real Prisma queries for dashboard items. Created src/lib/db/items.ts with getPinnedItems() and getRecentItems(). Item card border color and icon derived from item type, type tags displayed per item, pinned section hidden when empty
 - Phase 8: Replaced mock data in sidebar with real Prisma queries. Added getItemTypesWithCounts() and getSidebarCollections() DB functions. Sidebar item types show real icons/counts linking to /items/[typename], collections show star icons for favorites and colored circles for recents, "View all collections" link added. Dashboard layout fetches sidebar data server-side and passes to DashboardShell
+- Phase 9: Added PRO badge to Files and Images item types in sidebar. Created shared ProBadge component using ShadCN Badge with subtle amber styling. Applied to both desktop and mobile sidebars
