@@ -17,6 +17,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import ProBadge from "@/components/dashboard/ProBadge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -87,6 +88,7 @@ export default function Sidebar({ collapsed, onToggle, data }: SidebarProps) {
         <nav className="px-2">
           {itemTypes.map((type) => {
             const Icon = iconMap[type.icon] ?? Code;
+            const isProType = type.name === "file" || type.name === "image";
 
             return (
               <Link
@@ -111,8 +113,13 @@ export default function Sidebar({ collapsed, onToggle, data }: SidebarProps) {
                   )}
                 </span>
                 {!collapsed && (
-                  <span className="text-xs text-muted-foreground">
-                    {type.count}
+                  <span className="flex items-center gap-2">
+                    {isProType && (
+                      <ProBadge />
+                    )}
+                    <span className="text-xs text-muted-foreground">
+                      {type.count}
+                    </span>
                   </span>
                 )}
               </Link>

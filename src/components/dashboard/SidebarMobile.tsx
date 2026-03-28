@@ -29,6 +29,7 @@ import {
   SheetContent,
   SheetTitle,
 } from "@/components/ui/sheet";
+import ProBadge from "@/components/dashboard/ProBadge";
 import type { SidebarData } from "@/components/dashboard/Sidebar";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -74,6 +75,7 @@ export default function SidebarMobile({
           <nav className="px-2">
             {itemTypes.map((type) => {
               const Icon = iconMap[type.icon] ?? Code;
+              const isProType = type.name === "file" || type.name === "image";
 
               return (
                 <Link
@@ -86,8 +88,13 @@ export default function SidebarMobile({
                     <Icon className="h-4 w-4" style={{ color: type.color }} />
                     <span className="capitalize">{type.name}s</span>
                   </span>
-                  <span className="text-xs text-muted-foreground">
-                    {type.count}
+                  <span className="flex items-center gap-2">
+                    {isProType && (
+                      <ProBadge />
+                    )}
+                    <span className="text-xs text-muted-foreground">
+                      {type.count}
+                    </span>
                   </span>
                 </Link>
               );

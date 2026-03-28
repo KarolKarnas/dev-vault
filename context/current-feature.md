@@ -1,23 +1,25 @@
 # Current Feature
 
-Stats & Sidebar - Real Data
+Add Pro Badge to Sidebar
 
 ## Status
 
-Completed
+In Progress
 
 ## Goals
 
-- Display stats in main area from database data instead of mock data, keeping current design/layout
-- Display item types in sidebar with their icons, linking to /items/[typename]
-- Add "View all collections" link under the collections list that goes to /collections
-- Keep star icons for favorite collections but for recents, show colored circle based on most-used item type
-- Create @src/lib/db/items.ts database functions (use collections file for reference)
+- Add a "Pro" badge/indicator next to the user's name in the sidebar user profile area
+- Badge should always be visible as a static upsell marker (not conditional on user plan)
+- Badge should be visible in both expanded and collapsed sidebar states
+- Style the badge to match the app's dark-mode-first design using ShadCN Badge component
+- Update both desktop Sidebar and mobile SidebarMobile components
 
 ## Notes
 
-- Spec: @context/features/stats-sidebar-spec.md
-- Reference: @src/lib/db/collections.ts
+- Desktop sidebar: @src/components/dashboard/Sidebar.tsx
+- Mobile sidebar: @src/components/dashboard/SidebarMobile.tsx
+- User model has `isPro` boolean field in the Prisma schema
+- User profile area is at the bottom of the sidebar after a separator
 
 ## History
 
