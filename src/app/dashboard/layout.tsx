@@ -8,13 +8,12 @@ import {
 } from "@/components/dashboard/skeletons";
 import { getItemTypesWithCounts } from "@/lib/db/items";
 import { getSidebarCollections } from "@/lib/db/collections";
-import { prisma } from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/db/user";
 import type { SidebarData } from "@/components/dashboard/Sidebar";
 
 const getSidebarData = cache(async (): Promise<SidebarData> => {
-  // TODO: Replace with authenticated user once auth is implemented
-  const user = await prisma.user.findFirst();
-  const userId = user?.id ?? "";
+  const currentUser = await getCurrentUser();
+  const userId = currentUser?.id ?? "";
 
   const [itemTypes, collections] = await Promise.all([
     getItemTypesWithCounts(userId),
@@ -25,8 +24,8 @@ const getSidebarData = cache(async (): Promise<SidebarData> => {
     itemTypes,
     collections,
     user: {
-      name: user?.name ?? "User",
-      email: user?.email ?? "",
+      name: currentUser?.name ?? "User",
+      email: currentUser?.email ?? "",
     },
   };
 });

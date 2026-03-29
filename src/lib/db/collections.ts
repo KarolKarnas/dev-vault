@@ -23,6 +23,7 @@ export async function getRecentCollections(
     orderBy: { updatedAt: "desc" },
     take: limit,
     include: {
+      _count: { select: { items: true } },
       items: {
         select: {
           type: {
@@ -72,7 +73,7 @@ export async function getRecentCollections(
       name: collection.name,
       description: collection.description,
       isFavorite: collection.isFavorite,
-      itemCount: collection.items.length,
+      itemCount: collection._count.items,
       updatedAt: collection.updatedAt,
       borderColor,
       types,
@@ -89,12 +90,15 @@ export interface SidebarCollection {
 }
 
 export async function getSidebarCollections(
-  userId: string
+  userId: string,
+  limit = 20
 ): Promise<SidebarCollection[]> {
   const collections = await prisma.collection.findMany({
     where: { userId },
     orderBy: { updatedAt: "desc" },
+    take: limit,
     include: {
+      _count: { select: { items: true } },
       items: {
         select: {
           type: {
@@ -132,7 +136,7 @@ export async function getSidebarCollections(
       id: collection.id,
       name: collection.name,
       isFavorite: collection.isFavorite,
-      itemCount: collection.items.length,
+      itemCount: collection._count.items,
       dominantColor,
     };
   });

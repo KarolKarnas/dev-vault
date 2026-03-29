@@ -4,13 +4,11 @@ import PinnedItems from "@/components/dashboard/PinnedItems";
 import RecentItems from "@/components/dashboard/RecentItems";
 import { getRecentCollections, getDashboardStats } from "@/lib/db/collections";
 import { getPinnedItems, getRecentItems } from "@/lib/db/items";
-import { prisma } from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/db/user";
 
 export default async function DashboardPage() {
-  // TODO: Replace with authenticated user once auth is implemented
-  const user = await prisma.user.findFirst();
-
-  const userId = user?.id ?? "";
+  const currentUser = await getCurrentUser();
+  const userId = currentUser?.id ?? "";
 
   const [collections, stats, pinnedItems, recentItems] = await Promise.all([
     getRecentCollections(userId),

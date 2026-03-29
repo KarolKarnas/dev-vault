@@ -15,6 +15,7 @@ export async function getItemTypesWithCounts(
     where: {
       OR: [{ isSystem: true }, { userId }],
     },
+    take: 50,
     include: {
       _count: {
         select: {
@@ -93,10 +94,14 @@ const itemInclude = {
   },
 } as const;
 
-export async function getPinnedItems(userId: string): Promise<ItemWithType[]> {
+export async function getPinnedItems(
+  userId: string,
+  limit = 20
+): Promise<ItemWithType[]> {
   const items = await prisma.item.findMany({
     where: { userId, isPinned: true },
     orderBy: { updatedAt: "desc" },
+    take: limit,
     include: itemInclude,
   });
 

@@ -1,10 +1,23 @@
-# Current Feature
+# Current Feature: Optimize DB Queries & Extract Constants
 
 ## Status
 
+In Progress
+
 ## Goals
 
+- Deduplicate user query: extract shared `getCurrentUserId()` so layout and page don't both call `prisma.user.findFirst()` independently
+- Optimize collection queries: use Prisma `_count` aggregate instead of fetching all items just to count them
+- Extract PRO_ITEM_TYPES constant: remove hard-coded `"file" || "image"` from both sidebar components
+- Add max query limits: ensure all unbounded `findMany` calls have a `take` limit to prevent runaway queries
+
 ## Notes
+
+- `getItemTypesWithCounts` already uses `_count` correctly — no changes needed there
+- `getRecentCollections` still needs items included for type icons (border color + icon row), but item count should use `_count`
+- `getSidebarCollections` still needs items for dominant color calculation, but item count should use `_count`
+- PRO_ITEM_TYPES goes in `src/lib/constants.ts` and is imported by both Sidebar and SidebarMobile
+- `getCurrentUserId()` goes in `src/lib/db/user.ts` — a cached function returning the user ID (will be replaced by auth session later)
 
 ## History
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Star, Plus, Settings, ChevronDown } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { iconMap, defaultIcon } from "@/lib/icons";
+import { PRO_ITEM_TYPES } from "@/lib/constants";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -38,7 +39,7 @@ export default function SidebarMobile({ data }: SidebarMobileProps) {
         <nav className="px-2">
           {itemTypes.map((type) => {
             const Icon = iconMap[type.icon] ?? defaultIcon;
-            const isProType = type.name === "file" || type.name === "image";
+            const isProType = PRO_ITEM_TYPES.includes(type.name);
 
             return (
               <Link
