@@ -1,20 +1,10 @@
-# Current Feature: Add Error Boundaries
+# Current Feature
 
 ## Status
-In Progress
 
 ## Goals
-- Add `src/app/dashboard/error.tsx` to catch runtime errors in the dashboard page with a retry button
-- Add `src/app/error.tsx` as a global fallback for any route-level error
-- Add `src/app/global-error.tsx` to catch errors in the root layout (includes its own `<html>` and `<body>` tags)
-- Show user-friendly error messages with a "Try again" action
-- Follow dark-mode-first styling consistent with the app
 
 ## Notes
-- error.tsx must be a client component (`"use client"`)
-- error.tsx receives `error` and `reset` props from Next.js
-- global-error.tsx must render its own `<html>` and `<body>` since it replaces the root layout
-- Keep error UIs minimal and developer-friendly
 
 ## History
 
@@ -31,3 +21,4 @@ In Progress
 - Phase 8: Replaced mock data in sidebar with real Prisma queries. Added getItemTypesWithCounts() and getSidebarCollections() DB functions. Sidebar item types show real icons/counts linking to /items/[typename], collections show star icons for favorites and colored circles for recents, "View all collections" link added. Dashboard layout fetches sidebar data server-side and passes to DashboardShell
 - Phase 9: Added PRO badge to Files and Images item types in sidebar. Created shared ProBadge component using ShadCN Badge with subtle amber styling. Applied to both desktop and mobile sidebars
 - Phase 10: Added loading states with ShadCN Skeleton component. Created dashboard loading.tsx for route-level skeleton, shared skeleton components for stats/collections/items/sidebar. Added Suspense boundaries for sidebar streaming. Refactored DashboardShell to accept sidebar as ReactNode slots, moved collapsed state into Sidebar, added SidebarContext for mobile close
+- Phase 11: Added error boundaries. Created dashboard/error.tsx for dashboard errors, app/error.tsx as global route fallback, and app/global-error.tsx for root layout errors with own html/body. All show user-friendly messages with retry buttons
