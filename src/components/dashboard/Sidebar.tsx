@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Star, Plus, Settings, PanelLeft, ChevronDown } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -23,12 +24,11 @@ export interface SidebarData {
 }
 
 interface SidebarProps {
-  collapsed: boolean;
-  onToggle: () => void;
   data: SidebarData;
 }
 
-export default function Sidebar({ collapsed, onToggle, data }: SidebarProps) {
+export default function Sidebar({ data }: SidebarProps) {
+  const [collapsed, setCollapsed] = useState(false);
   const { itemTypes, collections, user } = data;
   const favoriteCollections = collections.filter((c) => c.isFavorite);
   const allCollections = collections.filter((c) => !c.isFavorite);
@@ -54,7 +54,7 @@ export default function Sidebar({ collapsed, onToggle, data }: SidebarProps) {
           variant="ghost"
           size="icon"
           className="h-7 w-7"
-          onClick={onToggle}
+          onClick={() => setCollapsed((prev) => !prev)}
         >
           <PanelLeft className="h-4 w-4" />
         </Button>

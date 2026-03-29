@@ -1,10 +1,22 @@
-# Current Feature
+# Current Feature: Add Loading States
 
 ## Status
+In Progress
 
 ## Goals
+- Add loading.tsx skeleton screen for the dashboard page using the ShadCN Skeleton component
+- Create skeleton layouts that match the shape of actual dashboard content (stats cards, collections grid, pinned items, recent items list)
+- Add a loading state for the sidebar data in the dashboard layout
+- Use Suspense boundaries where appropriate to enable streaming/partial rendering
+- Follow Next.js patterns: loading.tsx for route-level, Suspense for component-level
 
 ## Notes
+- Currently NO loading states exist anywhere in the app
+- All data fetching is server-side in dashboard/page.tsx and dashboard/layout.tsx using Promise.all()
+- Components are presentational (StatsCards, RecentCollections, PinnedItems, RecentItems)
+- Use the ShadCN Skeleton component (`npx shadcn@latest add skeleton`) for all skeleton UI
+- Dark mode first styling
+- Keep skeletons visually consistent with the actual rendered components
 
 ## History
 
