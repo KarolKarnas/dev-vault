@@ -1,22 +1,10 @@
-# Current Feature: Add Loading States
+# Current Feature
 
 ## Status
-In Progress
 
 ## Goals
-- Add loading.tsx skeleton screen for the dashboard page using the ShadCN Skeleton component
-- Create skeleton layouts that match the shape of actual dashboard content (stats cards, collections grid, pinned items, recent items list)
-- Add a loading state for the sidebar data in the dashboard layout
-- Use Suspense boundaries where appropriate to enable streaming/partial rendering
-- Follow Next.js patterns: loading.tsx for route-level, Suspense for component-level
 
 ## Notes
-- Currently NO loading states exist anywhere in the app
-- All data fetching is server-side in dashboard/page.tsx and dashboard/layout.tsx using Promise.all()
-- Components are presentational (StatsCards, RecentCollections, PinnedItems, RecentItems)
-- Use the ShadCN Skeleton component (`npx shadcn@latest add skeleton`) for all skeleton UI
-- Dark mode first styling
-- Keep skeletons visually consistent with the actual rendered components
 
 ## History
 
@@ -32,3 +20,4 @@ In Progress
 - Phase 7: Replaced mock data with real Prisma queries for dashboard items. Created src/lib/db/items.ts with getPinnedItems() and getRecentItems(). Item card border color and icon derived from item type, type tags displayed per item, pinned section hidden when empty
 - Phase 8: Replaced mock data in sidebar with real Prisma queries. Added getItemTypesWithCounts() and getSidebarCollections() DB functions. Sidebar item types show real icons/counts linking to /items/[typename], collections show star icons for favorites and colored circles for recents, "View all collections" link added. Dashboard layout fetches sidebar data server-side and passes to DashboardShell
 - Phase 9: Added PRO badge to Files and Images item types in sidebar. Created shared ProBadge component using ShadCN Badge with subtle amber styling. Applied to both desktop and mobile sidebars
+- Phase 10: Added loading states with ShadCN Skeleton component. Created dashboard loading.tsx for route-level skeleton, shared skeleton components for stats/collections/items/sidebar. Added Suspense boundaries for sidebar streaming. Refactored DashboardShell to accept sidebar as ReactNode slots, moved collapsed state into Sidebar, added SidebarContext for mobile close
