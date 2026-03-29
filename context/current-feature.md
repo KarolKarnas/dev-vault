@@ -1,10 +1,20 @@
-# Current Feature
+# Current Feature: Add Error Boundaries
 
 ## Status
+In Progress
 
 ## Goals
+- Add `src/app/dashboard/error.tsx` to catch runtime errors in the dashboard page with a retry button
+- Add `src/app/error.tsx` as a global fallback for any route-level error
+- Add `src/app/global-error.tsx` to catch errors in the root layout (includes its own `<html>` and `<body>` tags)
+- Show user-friendly error messages with a "Try again" action
+- Follow dark-mode-first styling consistent with the app
 
 ## Notes
+- error.tsx must be a client component (`"use client"`)
+- error.tsx receives `error` and `reset` props from Next.js
+- global-error.tsx must render its own `<html>` and `<body>` since it replaces the root layout
+- Keep error UIs minimal and developer-friendly
 
 ## History
 
