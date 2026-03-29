@@ -1,23 +1,10 @@
-# Current Feature: Optimize DB Queries & Extract Constants
+# Current Feature
 
 ## Status
 
-In Progress
-
 ## Goals
 
-- Deduplicate user query: extract shared `getCurrentUserId()` so layout and page don't both call `prisma.user.findFirst()` independently
-- Optimize collection queries: use Prisma `_count` aggregate instead of fetching all items just to count them
-- Extract PRO_ITEM_TYPES constant: remove hard-coded `"file" || "image"` from both sidebar components
-- Add max query limits: ensure all unbounded `findMany` calls have a `take` limit to prevent runaway queries
-
 ## Notes
-
-- `getItemTypesWithCounts` already uses `_count` correctly — no changes needed there
-- `getRecentCollections` still needs items included for type icons (border color + icon row), but item count should use `_count`
-- `getSidebarCollections` still needs items for dominant color calculation, but item count should use `_count`
-- PRO_ITEM_TYPES goes in `src/lib/constants.ts` and is imported by both Sidebar and SidebarMobile
-- `getCurrentUserId()` goes in `src/lib/db/user.ts` — a cached function returning the user ID (will be replaced by auth session later)
 
 ## History
 
@@ -35,3 +22,4 @@ In Progress
 - Phase 9: Added PRO badge to Files and Images item types in sidebar. Created shared ProBadge component using ShadCN Badge with subtle amber styling. Applied to both desktop and mobile sidebars
 - Phase 10: Added loading states with ShadCN Skeleton component. Created dashboard loading.tsx for route-level skeleton, shared skeleton components for stats/collections/items/sidebar. Added Suspense boundaries for sidebar streaming. Refactored DashboardShell to accept sidebar as ReactNode slots, moved collapsed state into Sidebar, added SidebarContext for mobile close
 - Phase 11: Added error boundaries. Created dashboard/error.tsx for dashboard errors, app/error.tsx as global route fallback, and app/global-error.tsx for root layout errors with own html/body. All show user-friendly messages with retry buttons
+- Phase 12: Optimized DB queries and extracted constants. Added shared getCurrentUser() with React cache to deduplicate user fetch across layout/page. Used Prisma _count aggregate for collection item counts. Extracted PRO_ITEM_TYPES to src/lib/constants.ts. Added take limits to all unbounded findMany queries
