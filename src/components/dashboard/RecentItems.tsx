@@ -1,28 +1,8 @@
 import Link from "next/link";
-import {
-  Clock,
-  Star,
-  Code,
-  Sparkles,
-  Terminal,
-  StickyNote,
-  File,
-  Image,
-  Link as LinkIcon,
-  type LucideIcon,
-} from "lucide-react";
+import { Clock, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { iconMap, defaultIcon } from "@/lib/icons";
 import type { ItemWithType } from "@/lib/db/items";
-
-const iconMap: Record<string, LucideIcon> = {
-  Code,
-  Sparkles,
-  Terminal,
-  StickyNote,
-  File,
-  Image,
-  Link: LinkIcon,
-};
 
 interface RecentItemsProps {
   items: ItemWithType[];
@@ -37,7 +17,7 @@ export default function RecentItems({ items }: RecentItemsProps) {
       </div>
       <div className="space-y-2">
         {items.map((item) => {
-          const Icon = iconMap[item.type.icon] ?? Code;
+          const Icon = iconMap[item.type.icon] ?? defaultIcon;
 
           return (
             <Link

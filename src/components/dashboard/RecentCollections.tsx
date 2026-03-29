@@ -1,27 +1,7 @@
 import Link from "next/link";
-import {
-  Code,
-  Sparkles,
-  Terminal,
-  StickyNote,
-  File,
-  Image,
-  Link as LinkIcon,
-  Star,
-  MoreHorizontal,
-  type LucideIcon,
-} from "lucide-react";
+import { Star, MoreHorizontal } from "lucide-react";
+import { iconMap, defaultIcon } from "@/lib/icons";
 import type { CollectionWithTypes } from "@/lib/db/collections";
-
-const iconMap: Record<string, LucideIcon> = {
-  Code,
-  Sparkles,
-  Terminal,
-  StickyNote,
-  File,
-  Image,
-  Link: LinkIcon,
-};
 
 interface RecentCollectionsProps {
   collections: CollectionWithTypes[];
@@ -66,7 +46,7 @@ export default function RecentCollections({
             </p>
             <div className="flex gap-1.5">
               {collection.types.map((type, i) => {
-                const Icon = iconMap[type.icon] ?? Code;
+                const Icon = iconMap[type.icon] ?? defaultIcon;
                 return (
                   <Icon
                     key={i}

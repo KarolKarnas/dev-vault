@@ -1,21 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Code,
-  Sparkles,
-  Terminal,
-  StickyNote,
-  File,
-  Image,
-  Link as LinkIcon,
-  Star,
-  Plus,
-  Settings,
-  ChevronDown,
-  type LucideIcon,
-} from "lucide-react";
+import { Star, Plus, Settings, ChevronDown } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { iconMap, defaultIcon } from "@/lib/icons";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -31,16 +19,6 @@ import {
 } from "@/components/ui/sheet";
 import ProBadge from "@/components/dashboard/ProBadge";
 import type { SidebarData } from "@/components/dashboard/Sidebar";
-
-const iconMap: Record<string, LucideIcon> = {
-  Code,
-  Sparkles,
-  Terminal,
-  StickyNote,
-  File,
-  Image,
-  Link: LinkIcon,
-};
 
 interface SidebarMobileProps {
   open: boolean;
@@ -74,7 +52,7 @@ export default function SidebarMobile({
         <ScrollArea className="flex-1 h-[calc(100vh-8rem)]">
           <nav className="px-2">
             {itemTypes.map((type) => {
-              const Icon = iconMap[type.icon] ?? Code;
+              const Icon = iconMap[type.icon] ?? defaultIcon;
               const isProType = type.name === "file" || type.name === "image";
 
               return (

@@ -1,22 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Code,
-  Sparkles,
-  Terminal,
-  StickyNote,
-  File,
-  Image,
-  Link as LinkIcon,
-  Star,
-  Plus,
-  Settings,
-  PanelLeft,
-  ChevronDown,
-  type LucideIcon,
-} from "lucide-react";
+import { Star, Plus, Settings, PanelLeft, ChevronDown } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { iconMap, defaultIcon } from "@/lib/icons";
 import ProBadge from "@/components/dashboard/ProBadge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -28,16 +15,6 @@ import {
 } from "@/components/ui/collapsible";
 import type { SidebarItemType } from "@/lib/db/items";
 import type { SidebarCollection } from "@/lib/db/collections";
-
-const iconMap: Record<string, LucideIcon> = {
-  Code,
-  Sparkles,
-  Terminal,
-  StickyNote,
-  File,
-  Image,
-  Link: LinkIcon,
-};
 
 export interface SidebarData {
   itemTypes: SidebarItemType[];
@@ -87,7 +64,7 @@ export default function Sidebar({ collapsed, onToggle, data }: SidebarProps) {
         {/* Item types */}
         <nav className="px-2">
           {itemTypes.map((type) => {
-            const Icon = iconMap[type.icon] ?? Code;
+            const Icon = iconMap[type.icon] ?? defaultIcon;
             const isProType = type.name === "file" || type.name === "image";
 
             return (
