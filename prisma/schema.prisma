@@ -101,6 +101,8 @@ model Item {
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+  @@index([userId, isPinned])
+  @@index([userId, updatedAt(sort: Desc)])
   @@index([typeId])
   @@index([collectionId])
 }
